@@ -1,27 +1,53 @@
-import OSM from "ol/source/OSM";
 import { Map, View } from "ol";
-import TileLayer from "ol/layer/Tile";
-import { useEffect } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styles from "./MyMap.module.css";
 import { Coordinate } from "../../types/Map";
+import BaseEvent from "ol/events/Event";
 
 interface MyMapProps {
-  id: string;
   view: { center: Coordinate; zoom: number };
+  children: ReactNode;
 }
 
+interface OmerMap extends Map {
+  scaleChangeEvent: BaseEvent;
+}
+
+export const MapContext = createContext<OmerMap | null>(null);
+
 const MyMap: React.FC<MyMapProps> = (props) => {
-  const { id, view } = props;
+  const { view, children } = props;
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [map, setMap] = useState<OmerMap | null>(null);
 
   useEffect(() => {
-    new Map({
+    const map = new Map({
       view: new View(view),
-      layers: [new TileLayer({ source: new OSM() })],
-      target: id,
-    });
-  }, [id, view]);
+      layers: [],
+      controls: [],
+      overlays: [],
+    }) as OmerMap;
 
-  return <div id={id} className={styles.map} />;
+    map.setTarget(mapRef.current as HTMLElement);
+
+    setMap(map);
+
+    return () => map.setTarget(undefined);
+  }, [view]);
+
+  return (
+    <MapContext.Provider value={map}>
+      <div ref={mapRef} className={styles.map}>
+        {children}
+      </div>
+    </MapContext.Provider>
+  );
 };
 
 export default MyMap;
