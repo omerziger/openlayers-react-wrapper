@@ -1,22 +1,22 @@
 import "./app.css";
-import MyLayers from "./components/MyLayers/MyLayers";
-import MyMap from "./components/MyMap/MyMap";
-import MyTileLayer from "./components/MyTileLayer/MyTileLayer";
+import Layers from "./components/Layers/Layers";
+import Map from "./components/Map/Map";
+import TileLayer from "./components/TileLayer/TileLayer";
 import OSM from "ol/source/OSM";
-import MyControls from "./components/MyControls/MyControls";
-import MyScaleControl from "./components/MyScaleControl/MyScaleControl";
+import Controls from "./components/Controls/Controls";
+import ScaleLine from "./components/ScaleLine/ScaleLine";
 
 function App() {
   return (
     <div className="App">
-      <MyMap view={{ center: [0, 0], zoom: 2 }}>
-        <MyLayers>
-          <MyTileLayer source={new OSM()} zIndex={0} />
-        </MyLayers>
-        <MyControls>
-          <MyScaleControl bar={true} minWidth={125} text={true} />
-        </MyControls>
-      </MyMap>
+      <Map view={{ center: [0, 0], zoom: 2 }}>
+        <Layers>
+          <TileLayer source={new OSM()} zIndex={0} />
+        </Layers>
+        <Controls>
+          <ScaleLine bar={true} minWidth={125} text={true} />
+        </Controls>
+      </Map>
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import React, { ReactNode } from "react";
 
-type Props = {
+interface ControlsProps {
   children: ReactNode;
 };
 
-export default function MyControls(props: Props) {
+const Controls:React.FC<ControlsProps> = props => {
   const { children } = props;
   return <div>{children}</div>;
 }
+
+export default Controls

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { MapContext } from "../MyMap/MyMap";
+import { MapContext } from "../Map/Map";
 import OLScaleLine, { Units } from "ol/control/ScaleLine";
 import { ListenerFunction } from "ol/events";
 

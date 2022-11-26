@@ -1,10 +1,12 @@
 import { ReactNode } from "react";
 
-type Props = {
+interface LayersProps {
   children: ReactNode;
 };
 
-export default function MyLayers(props: Props) {
+const Layers: React.FC<LayersProps> = props => {
   const { children } = props;
   return <div>{children}</div>;
 }
+
+export default Layers

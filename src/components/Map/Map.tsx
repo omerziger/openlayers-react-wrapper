@@ -1,4 +1,4 @@
-import { Map, View } from "ol";
+import { Map as OLMap, View } from "ol";
 import React, {
   createContext,
   ReactNode,
@@ -6,28 +6,28 @@ import React, {
   useRef,
   useState,
 } from "react";
-import styles from "./MyMap.module.css";
+import styles from "./Map.module.css";
 import { Coordinate } from "../../types/Map";
 
-interface MyMapProps {
+interface MapProps {
   view: { center: Coordinate; zoom: number };
   children: ReactNode;
 }
 
-export const MapContext = createContext<Map | null>(null);
+export const MapContext = createContext<OLMap | null>(null);
 
-const MyMap: React.FC<MyMapProps> = (props) => {
+const Map: React.FC<MapProps> = (props) => {
   const { view, children } = props;
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<Map | null>(null);
+  const [map, setMap] = useState<OLMap | null>(null);
 
   useEffect(() => {
-    const map = new Map({
+    const map = new OLMap({
       view: new View(view),
       layers: [],
       controls: [],
       overlays: [],
-    }) as Map;
+    }) as OLMap;
 
     map.setTarget(mapRef.current as HTMLElement);
 
@@ -45,4 +45,4 @@ const MyMap: React.FC<MyMapProps> = (props) => {
   );
 };
 
-export default MyMap;
+export default Map
