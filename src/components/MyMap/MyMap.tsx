@@ -8,23 +8,18 @@ import React, {
 } from "react";
 import styles from "./MyMap.module.css";
 import { Coordinate } from "../../types/Map";
-import BaseEvent from "ol/events/Event";
 
 interface MyMapProps {
   view: { center: Coordinate; zoom: number };
   children: ReactNode;
 }
 
-interface OmerMap extends Map {
-  scaleChangeEvent: BaseEvent;
-}
-
-export const MapContext = createContext<OmerMap | null>(null);
+export const MapContext = createContext<Map | null>(null);
 
 const MyMap: React.FC<MyMapProps> = (props) => {
   const { view, children } = props;
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<OmerMap | null>(null);
+  const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
     const map = new Map({
@@ -32,7 +27,7 @@ const MyMap: React.FC<MyMapProps> = (props) => {
       layers: [],
       controls: [],
       overlays: [],
-    }) as OmerMap;
+    }) as Map;
 
     map.setTarget(mapRef.current as HTMLElement);
 
