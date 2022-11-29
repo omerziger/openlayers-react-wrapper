@@ -9,7 +9,7 @@ import ScaleLine from "./components/ScaleLine/ScaleLine";
 function App() {
   return (
     <div className="App">
-      <Map view={{ center: [0, 0], zoom: 2 }}>
+      <Map viewOptions={{ center: [0, 0], zoom: 2 }}>
         <Layers>
           <TileLayer source={new OSM()} zIndex={0} />
         </Layers>

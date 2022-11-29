@@ -10,20 +10,20 @@ import styles from "./Map.module.css";
 import { Coordinate } from "../../types/Map";
 
 interface MapProps {
-  view: { center: Coordinate; zoom: number };
+  viewOptions: { center: Coordinate; zoom: number };
   children: ReactNode;
 }
 
 export const MapContext = createContext<OLMap | null>(null);
 
 const Map: React.FC<MapProps> = (props) => {
-  const { view, children } = props;
+  const { viewOptions, children } = props;
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<OLMap | null>(null);
 
   useEffect(() => {
     const map = new OLMap({
-      view: new View(view),
+      view: new View(viewOptions),
       layers: [],
       controls: [],
       overlays: [],
@@ -34,7 +34,7 @@ const Map: React.FC<MapProps> = (props) => {
     setMap(map);
 
     return () => map.setTarget(undefined);
-  }, [view]);
+  }, [viewOptions]);
 
   return (
     <MapContext.Provider value={map}>
