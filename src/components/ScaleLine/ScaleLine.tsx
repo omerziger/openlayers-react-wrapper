@@ -15,9 +15,9 @@ type Props = {
   text?: boolean;
   dpi?: number;
   onChange?: ListenerFunction;
-  onUnitsChange?:ListenerFunction;
-  onError?:ListenerFunction;
-  onPropertyChange?:ListenerFunction;
+  onUnitsChange?: ListenerFunction;
+  onError?: ListenerFunction;
+  onPropertyChange?: ListenerFunction;
 };
 
 export default function ScaleLine(props: Props) {
